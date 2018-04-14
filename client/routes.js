@@ -20,18 +20,6 @@ const loggedIn = FlowRouter.group({
   ],
 });
 
-const adminRoutes = FlowRouter.group({
-  triggersEnter: [
-    () => {
-      if (!(Meteor.loggingIn() || Meteor.userId())) {
-        return FlowRouter.go('/login');
-      } else if (!Roles.userIsInRole(Meteor.userId(), ['content-manager', 'admin'])) {
-        return FlowRouter.go('/');
-      }
-    },
-  ],
-});
-
 FlowRouter.route('/', {
   name: 'Home',
   action() {
@@ -61,13 +49,13 @@ exposed.route('/login', {
  * for now admin routes will be exposed before we add the loggin
  */
 
-exposed.route('/add_service', {
+loggedIn.route('/add_service', {
   name: 'AddService',
   action() {
     mount(DashBoard, { yield: <AddService /> });
   },
 });
-exposed.route('/my_services', {
+loggedIn.route('/my_services', {
   name: 'MyServices',
   action() {
     mount(DashBoard, { yield: <MyServices /> });
