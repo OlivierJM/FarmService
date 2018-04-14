@@ -23,3 +23,18 @@ less@2.7.11                    # Leaner CSS language
 
 meteortesting:mocha               # A package for writing and running your meteor app and package tests with mocha
 johanbrook:publication-collector  # Test a Meteor publication by collecting its output
+
+
+meteortoys:allthings
+react-meteor-data
+accounts-ui
+accounts-password
+alanning:roles
+dynamic-import@0.3.0
+fourseven:scss
+check@1.3.0
+audit-argument-checks@1.0.7
+mdg:validated-method
+aldeed:collection2-core
+momentjs:moment
+zodiase:material-design-icons-fonts

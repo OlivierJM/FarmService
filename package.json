@@ -7,9 +7,41 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.42",
-    "meteor-node-stubs": "^0.3.2"
+    "bcrypt": "^0.8.7",
+    "materialize-css": "^1.0.0-beta",
+    "meteor-node-stubs": "^0.3.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.2.0",
+    "react-mounter": "^1.2.0",
+    "simpl-schema": "^1.4.2"
   },
   "devDependencies": {
-    "chai": "^4.1.2"
+    "chai": "^4.1.2",
+    "@meteorjs/eslint-config-meteor": "^1.0.5",
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-meteor": "^4.1.4",
+    "eslint-plugin-react": "^7.6.1"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "allowImportExportEverywhere": true
+    },
+    "plugins": [
+      "meteor"
+    ],
+    "extends": [
+      "airbnb",
+      "plugin:meteor/recommended"
+    ],
+    "settings": {
+      "import/resolver": "meteor"
+    }
   }
 }
