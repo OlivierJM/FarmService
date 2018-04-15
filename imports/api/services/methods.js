@@ -18,6 +18,7 @@ Meteor.methods({
       service_desc: desc,
       location,
       quantity,
+      images: [],
       createdAt: new Date(),
     });
   },

@@ -1,8 +1,9 @@
 /* eslint class-methods-use-this: "off" */
 import React, { Component, Fragment } from 'react';
-import { Media, Images } from '../../../api/media/media';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import { Media, Images } from '../../../api/media/media';
+import { Services } from '../../../api/services/services';
 
 export default class AddService extends Component {
   constructor(props) {
@@ -37,20 +38,45 @@ export default class AddService extends Component {
         Session.set('service_id', service_id);
       }
     });
-    // insert files afterwards
-    for (let file = 0; file < files.length; file++) {
-      const fileObj = Media.insert(files[file]);
-      Images.insert({
-        service_id,
-        name,
-        service_type,
-        desc,
-        location,
-        quantity,
-        file: fileObj,
-        createdAt: new Date(),
-      });
-    }
+    Meteor.setTimeout(() => {
+      // insert files afterwards
+      for (let file = 0; file < files.length; file++) {
+        const fileObj = Media.insert(files[file]);
+        Services.update(
+          { _id: Session.get('service_id') },
+          {
+            $addToSet: {
+              images: {
+                $each: [
+                  {
+                    file: fileObj,
+                    createdAt: new Date(),
+                  },
+                ],
+              },
+            },
+          },
+          err => {
+            if (err) {
+              Session.set('err', err.reason);
+            } else {
+              console.log('uploaded');
+            }
+          },
+        );
+
+        // Images.insert({
+        //   service_id,
+        //   name,
+        //   service_type,
+        //   desc,
+        //   location,
+        //   quantity,
+        //   file: fileObj,
+        //   createdAt: new Date(),
+        // });
+      }
+    }, 500);
   };
 
   grabFile = e => {

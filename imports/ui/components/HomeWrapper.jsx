@@ -1,8 +1,15 @@
 /* eslint class-methods-use-this: "off" */
 import React, { Component, Fragment } from 'react';
+import { Meteor } from 'meteor/meteor';
 
 export default class HomeWrapper extends Component {
   render() {
+    let email = '';
+
+    if (Meteor.user()) {
+      const user = Meteor.user();
+      email = user.emails[0].address;
+    }
     return (
       <Fragment>
         <div className="container page-wrapper">
@@ -18,10 +25,7 @@ export default class HomeWrapper extends Component {
                       <i className="material-icons">account_circle</i>
                     </a>
                     <a href="#name">
-                      <span className="white-text name">{'Not Logged in'}</span>
-                    </a>
-                    <a href="#email">
-                      <span className="white-text email">{'email when logged-in'}</span>
+                      <span className="white-text name">{email}</span>
                     </a>
                   </div>
                 </li>

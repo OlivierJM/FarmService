@@ -4,14 +4,14 @@ import SimpleSchema from 'simpl-schema';
 export const Services = new Mongo.Collection('services', { idGeneration: 'STRING' });
 
 Services.deny({
-  insert: () => true,
-  update: () => true,
-  remove: () => true,
-});
-Services.allow({
   insert: () => false,
   update: () => false,
   remove: () => false,
+});
+Services.allow({
+  insert: () => true,
+  update: () => true,
+  remove: () => true,
 });
 
 const ServiceSchema = new SimpleSchema({
@@ -24,7 +24,9 @@ const ServiceSchema = new SimpleSchema({
     optional: true,
   },
   owner: String,
+  images: Array,
+  'images.$': Object,
   createdAt: Date,
 });
 
-Services.attachSchema(ServiceSchema);
+// Services.attachSchema(ServiceSchema);
