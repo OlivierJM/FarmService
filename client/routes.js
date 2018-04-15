@@ -8,6 +8,7 @@ import DashBoard from '../imports/ui/components/Admin/DashBoard';
 import AddService from '../imports/ui/components/Admin/AddService';
 import MyServices from '../imports/ui/components/Admin/MyServices';
 import NotFound from '../imports/ui/layouts/NotFound';
+import UpdateService from '../imports/ui/components/Admin/UpdateService';
 
 const exposed = FlowRouter.group({});
 
@@ -62,6 +63,13 @@ loggedIn.route('/my_services', {
     mount(DashBoard, { yield: <MyServices /> });
   },
 });
+loggedIn.route('/my_services/:_id', {
+  name: 'UpdateService',
+  action(params) {
+    mount(DashBoard, { yield: <UpdateService service_id={params.service_id} /> });
+  },
+});
+// UpdateService
 
 FlowRouter.notFound = {
   action() {

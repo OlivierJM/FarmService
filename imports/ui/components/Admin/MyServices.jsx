@@ -6,16 +6,25 @@ import { PropTypes } from 'prop-types';
 import { Services } from '../../../api/services/services';
 
 export class MyServices extends Component {
+  takeToUpdate = (e, id) => {
+    e.preventDefault();
+    FlowRouter.go(`/my_services/${id}`);
+  };
+
   renderServices() {
     const { services } = this.props;
     if (!services) {
       return null;
     }
     return services.map(service => (
-      <li key={service._id} className="collection-item">
+      <li
+        key={service._id}
+        className="collection-item"
+        onClick={e => this.takeToUpdate(e, service._id)}
+      >
         <div>
           {service.service_name}
-          <a href="#!" className="secondary-content">
+          <a href={`/my_services/${service._id}`} className="secondary-content">
             <i className="material-icons">send</i>
           </a>
         </div>

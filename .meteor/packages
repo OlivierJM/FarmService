@@ -38,3 +38,5 @@ mdg:validated-method
 aldeed:collection2-core
 momentjs:moment
 zodiase:material-design-icons-fonts
+cfs:standard-packages
+cfs:filesystem

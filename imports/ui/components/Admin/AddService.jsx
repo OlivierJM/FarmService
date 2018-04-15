@@ -1,5 +1,6 @@
 /* eslint class-methods-use-this: "off" */
 import React, { Component, Fragment } from 'react';
+import { Media, Images } from '../../../api/media/media';
 
 export default class AddService extends Component {
   constructor(props) {
@@ -24,8 +25,43 @@ export default class AddService extends Component {
     const desc = e.target.service_desc.value;
     const location = e.target.service_location.value;
     const quantity = service_type ? e.target.quantity.value : '';
-    Meteor.call('serviceCreate', service_type, name, desc, location, quantity, err => {
-      err ? M.toast({ html: err.reason }) : M.toast({ html: 'Uploading files' });
+    const service_id = new Meteor.Collection.ObjectID().valueOf();
+    const file_id = new Meteor.Collection.ObjectID().valueOf();
+
+    Meteor.call('serviceCreate', service_id, service_type, name, desc, location, quantity, err => {
+      if (err) {
+        return M.toast({ html: err.reason });
+      } else {
+        for (let file = 0; file < files.length; file++) {
+          const fileObj = Media.insert(files[file]);
+          Images.update(
+            { _id: service_id },
+            {
+              $addToSet: {
+                files: {
+                  $each: [
+                    {
+                      _id: file_id,
+                      name,
+                      service_type,
+                      desc,
+                      location,
+                      quantity,
+                      file: fileObj,
+                      createdAt: new Date(),
+                    },
+                  ],
+                },
+              },
+            },
+            err => {
+              if (err) {
+                M.toast({ html: err.reason });
+              }
+            },
+          );
+        }
+      }
     });
   };
 
@@ -51,7 +87,7 @@ export default class AddService extends Component {
                     required
                   >
                     <option value="farm_service" data-icon="images/sample-1.jpg">
-                      Farm Service
+                      Farm Service & Drone Service
                     </option>
                     <option value="tractor_service" data-icon="images/office.jpg">
                       Tractor Service & Farm Equipments
@@ -143,6 +179,7 @@ export default class AddService extends Component {
                           type="file"
                           multiple
                           onChange={this.grabFile}
+                          required
                         />
                       </div>
                     </div>
