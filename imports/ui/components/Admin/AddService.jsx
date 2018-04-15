@@ -1,6 +1,8 @@
 /* eslint class-methods-use-this: "off" */
 import React, { Component, Fragment } from 'react';
 import { Media, Images } from '../../../api/media/media';
+import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
 
 export default class AddService extends Component {
   constructor(props) {
@@ -32,37 +34,23 @@ export default class AddService extends Component {
       if (err) {
         return M.toast({ html: err.reason });
       } else {
-        for (let file = 0; file < files.length; file++) {
-          const fileObj = Media.insert(files[file]);
-          Images.update(
-            { _id: service_id },
-            {
-              $addToSet: {
-                files: {
-                  $each: [
-                    {
-                      _id: file_id,
-                      name,
-                      service_type,
-                      desc,
-                      location,
-                      quantity,
-                      file: fileObj,
-                      createdAt: new Date(),
-                    },
-                  ],
-                },
-              },
-            },
-            err => {
-              if (err) {
-                M.toast({ html: err.reason });
-              }
-            },
-          );
-        }
+        Session.set('service_id', service_id);
       }
     });
+    // insert files afterwards
+    for (let file = 0; file < files.length; file++) {
+      const fileObj = Media.insert(files[file]);
+      Images.insert({
+        service_id,
+        name,
+        service_type,
+        desc,
+        location,
+        quantity,
+        file: fileObj,
+        createdAt: new Date(),
+      });
+    }
   };
 
   grabFile = e => {
