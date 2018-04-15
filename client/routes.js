@@ -9,6 +9,8 @@ import AddService from '../imports/ui/components/Admin/AddService';
 import MyServices from '../imports/ui/components/Admin/MyServices';
 import NotFound from '../imports/ui/layouts/NotFound';
 import UpdateService from '../imports/ui/components/Admin/UpdateService';
+import HomeWrapper from '../imports/ui/components/HomeWrapper';
+import ServiceDetails from '../imports/ui/components/ServiceDetails';
 
 const exposed = FlowRouter.group({});
 
@@ -25,7 +27,13 @@ const loggedIn = FlowRouter.group({
 FlowRouter.route('/', {
   name: 'Home',
   action() {
-    mount(Home, {});
+    mount(HomeWrapper, { landing: <Home /> });
+  },
+});
+FlowRouter.route('/more/:_id', {
+  name: 'Home',
+  action(params) {
+    mount(HomeWrapper, { landing: <ServiceDetails service={params} /> });
   },
 });
 /**
