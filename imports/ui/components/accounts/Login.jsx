@@ -5,13 +5,14 @@ import { Meteor } from 'meteor/meteor';
 export default class Login extends Component {
   componentDidMount() {
     $('select').formSelect();
+    $('.tooltipped').tooltip();
   }
   loginUser = e => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     Meteor.loginWithPassword(email, password, err => {
-      err ? M.toast({ html: err.reason }) : M.toast({ html: 'Successfully logged-in' });
+      err ? M.toast({ html: err.reason }) : (M.toast({ html: 'Successfully logged-in' }), FlowRouter.go('/my_services'));
     });
     $('.field').val(''); // find a better way to clean static inputs
   };
@@ -55,7 +56,8 @@ export default class Login extends Component {
           <a
             title="Register"
             href="/join"
-            className="ngl btn-floating btn-large waves-effect waves-light red"
+            className="ngl btn-floating btn-large waves-effect waves-light tooltipped red"
+            data-tooltip="Register"
           >
             <i className="material-icons">input</i>
           </a>

@@ -13,6 +13,7 @@ export default class Register extends Component {
   }
   componentDidMount() {
     $('select').formSelect();
+    $('.tooltipped').tooltip();
   }
 
   checkPassword = e => {
@@ -143,7 +144,8 @@ export default class Register extends Component {
           <a
             title="Login"
             href="/login"
-            className="ngl btn-floating btn-large waves-effect waves-light red"
+            className="ngl btn-floating btn-large waves-effect tooltipped waves-light red"
+            data-tooltip="Login if you already have an account"
           >
             <i className="material-icons">input</i>
           </a>

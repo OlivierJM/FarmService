@@ -7,6 +7,7 @@ import Accounts from '../imports/ui/components/accounts/Accounts';
 import DashBoard from '../imports/ui/components/Admin/DashBoard';
 import AddService from '../imports/ui/components/Admin/AddService';
 import MyServices from '../imports/ui/components/Admin/MyServices';
+import NotFound from '../imports/ui/layouts/NotFound';
 
 const exposed = FlowRouter.group({});
 
@@ -61,3 +62,9 @@ loggedIn.route('/my_services', {
     mount(DashBoard, { yield: <MyServices /> });
   },
 });
+
+FlowRouter.notFound = {
+  action() {
+    mount(NotFound, {});
+  },
+};
