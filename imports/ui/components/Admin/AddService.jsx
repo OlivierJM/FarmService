@@ -2,10 +2,11 @@
 import React, { Component, Fragment } from 'react';
 
 export default class AddService extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      service_type: '',
+      service_type: 'farm_service',
+      files: [],
     };
   }
   componentDidMount() {
@@ -17,7 +18,21 @@ export default class AddService extends Component {
     });
   };
   publishDate = e => {
-    //   get the data from the form and save it
+    e.preventDefault();
+    const { service_type, files } = this.state;
+    const name = e.target.service_name.value;
+    const desc = e.target.service_desc.value;
+    const location = e.target.service_location.value;
+    const quantity = service_type ? e.target.quantity.value : '';
+    Meteor.call('serviceCreate', service_type, name, desc, location, quantity, err => {
+      err ? M.toast({ html: err.reason }) : M.toast({ html: 'Uploading files' });
+    });
+  };
+
+  grabFile = e => {
+    this.setState({
+      files: e.target.files,
+    });
   };
   render() {
     const { service_type } = this.state;
@@ -28,21 +43,21 @@ export default class AddService extends Component {
             <form className="col s12" id="reg-form" onSubmit={this.publishDate}>
               <div className="row">
                 <div className="input-field col s12">
-                  <select className="icons" name="service" onChange={this.checkService} required>
-                    <option value="" defaultValue>
-                      Choose your option
-                    </option>
+                  <select
+                    className="icons"
+                    name="service"
+                    value={service_type}
+                    onChange={this.checkService}
+                    required
+                  >
                     <option value="farm_service" data-icon="images/sample-1.jpg">
                       Farm Service
                     </option>
                     <option value="tractor_service" data-icon="images/office.jpg">
-                      Tractor Service
-                    </option>
-                    <option value="farm_equipments" data-icon="images/yuna.jpg">
-                      Farm Equipments
+                      Tractor Service & Farm Equipments
                     </option>
                   </select>
-                  <label>Types of Service</label>
+                  <label>Choose Types of Service</label>
                 </div>
               </div>
               {service_type === 'farm_service' ? (
@@ -84,7 +99,7 @@ export default class AddService extends Component {
                     <div className="input-field col s12">
                       <input
                         id="tractor"
-                        name="tractor"
+                        name="service_name"
                         type="text"
                         className="validate"
                         required
@@ -94,7 +109,7 @@ export default class AddService extends Component {
                     <div className="input-field col s12">
                       <textarea
                         id="textarea1"
-                        name="tractor_desc"
+                        name="service_desc"
                         className="materialize-textarea"
                       />
                       <label htmlFor="textarea1"> Description</label>
@@ -102,12 +117,34 @@ export default class AddService extends Component {
                     <div className="input-field col s12">
                       <input
                         id="location"
-                        name="tractor_location"
+                        name="service_location"
                         type="text"
                         className="validate"
                         required
                       />
                       <label htmlFor="location">Location</label>
+                    </div>
+                    <div className="input-field col s12">
+                      <input
+                        id="quantity"
+                        name="quantity"
+                        type="number"
+                        className="validate"
+                        required
+                      />
+                      <label htmlFor="quantity">Quantity</label>
+                    </div>
+
+                    <div className="input-field col s12">
+                      <div className="input-file-container">
+                        <input
+                          className="input-file"
+                          id="my-file"
+                          type="file"
+                          multiple
+                          onChange={this.grabFile}
+                        />
+                      </div>
                     </div>
                   </div>
                 </Fragment>

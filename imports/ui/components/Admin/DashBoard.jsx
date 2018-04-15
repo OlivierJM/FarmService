@@ -7,6 +7,7 @@ export default class DashBoard extends Component {
     $('.sidenav').sidenav();
   }
   render() {
+    Meteor.subscribe('services');
     return (
       <Fragment>
         <div className="row">

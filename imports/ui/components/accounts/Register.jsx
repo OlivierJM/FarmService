@@ -36,7 +36,7 @@ export default class Register extends Component {
     });
   };
   /**
-   * grab all user details
+   * grab all user details and create a user
    */
   registerUser = e => {
     e.preventDefault();
