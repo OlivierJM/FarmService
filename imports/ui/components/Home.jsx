@@ -3,57 +3,46 @@ import React, { Component, Fragment } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { PropTypes } from 'prop-types';
-import Slider from 'react-slick';
 import { Services } from '../../api/services/services';
-import { Media, Images } from '../../api/media/media';
+import { Media } from '../../api/media/media';
 
 export class Home extends Component {
   componentDidMount() {
     $('.sidenav').sidenav();
-    $('.slider').slider();
+    Meteor.setTimeout(() => {
+      $('.materialboxed').materialbox();
+    }, 50);
   }
   render() {
     const { services } = this.props;
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-    };
-    let index = 1;
     return (
       <Fragment>
         {services
           ? services.map(service => (
-              <div key={service._id} className="card col s12 l6">
-                <h5>{service.service_name}</h5>
-                <Slider {...settings} key={index++}>
-                  {service.images.map(image => (
-                    <div key={image._id}>
-                      <img
-                        className="responsive-img"
-                        src={`/uploads/media-${image.file._id}-${image.file.original.name}`}
-                      />
-                    </div>
-                  ))}
-                </Slider>
-                <div className="card-content">
-                  <span className="card-title activator grey-text text-darken-4">
-                    {service.service_type}
-                    <i className="material-icons right">more_vert</i>
-                  </span>
-                  <p>
-                    <a href="#">This is a link</a>
-                  </p>
-                </div>
-                <div className="card-reveal">
-                  <span className="card-title grey-text text-darken-4">
-                    {service.service_type}
-                    <i className="material-icons right">close</i>
-                  </span>
-                  <p>{service.service_desc}</p>
-                </div>
+              <div key={service._id} className="col s4 " style={{ marginTop: 20 }}>
+                <img
+                  className="responsive-img materialboxed"
+                  src={`/uploads/media-${service.images[0].file._id}-${
+                    service.images[0].file.original.name
+                  }`}
+                />
+                Title: <span>{service.service_name}</span> <br />
+                Location: <span>{service.location}</span> <br />
+                Supplier: <span>{service.owner}</span> <br />
+                <a
+                  href=""
+                  className=" "
+                  style={{ backgroundColor: '#edf2fa', padding: '1px 10px 5px', cursor: 'pointer' }}
+                >
+                  Talk to Owner
+                </a>{' '}
+                <a
+                  href=""
+                  className=" "
+                  style={{ backgroundColor: '#edf2fa', padding: '1px 10px 5px', cursor: 'pointer' }}
+                >
+                  More Details
+                </a>
               </div>
             ))
           : ''}
