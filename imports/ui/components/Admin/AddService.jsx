@@ -45,16 +45,7 @@ export default class AddService extends Component {
         Services.update(
           { _id: Session.get('service_id') },
           {
-            $addToSet: {
-              images: {
-                $each: [
-                  {
-                    file: fileObj,
-                    createdAt: new Date(),
-                  },
-                ],
-              },
-            },
+            $set: { file: fileObj },
           },
           err => {
             if (err) {
@@ -191,7 +182,6 @@ export default class AddService extends Component {
                           className="input-file"
                           id="my-file"
                           type="file"
-                          multiple
                           onChange={this.grabFile}
                           required
                         />

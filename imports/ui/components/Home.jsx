@@ -22,22 +22,20 @@ export class Home extends Component {
               <div key={service._id} className="col s4 " style={{ marginTop: 20 }}>
                 <img
                   className="responsive-img materialboxed"
-                  src={`/uploads/media-${service.images[0].file._id}-${
-                    service.images[0].file.original.name
-                  }`}
+                  src={`/uploads/media-${service.file._id}-${service.file.original.name}`}
                 />
                 Title: <span>{service.service_name}</span> <br />
                 Location: <span>{service.location}</span> <br />
                 Supplier: <span>{service.owner}</span> <br />
                 <a
-                  href=""
+                  href={`/chat/${service.owner}`}
                   className=" "
                   style={{ backgroundColor: '#edf2fa', padding: '1px 10px 5px', cursor: 'pointer' }}
                 >
                   Talk to Owner
-                </a>{' '}
+                </a>
                 <a
-                  href=""
+                  href={`/more/${service._id}`}
                   className=" "
                   style={{ backgroundColor: '#edf2fa', padding: '1px 10px 5px', cursor: 'pointer' }}
                 >
