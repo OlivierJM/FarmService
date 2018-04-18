@@ -74,7 +74,7 @@ export class ServiceDetails extends Component {
                       </a>
                     </li>
                     <li className="tab">
-                      <a href="#test6">Test 3</a>
+                      <a href="#test6">More</a>
                     </li>
                   </ul>
                 </div>

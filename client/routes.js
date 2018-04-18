@@ -11,6 +11,7 @@ import NotFound from '../imports/ui/layouts/NotFound';
 import UpdateService from '../imports/ui/components/Admin/UpdateService';
 import HomeWrapper from '../imports/ui/components/HomeWrapper';
 import ServiceDetails from '../imports/ui/components/ServiceDetails';
+import Results from '../imports/ui/components/Results';
 
 const exposed = FlowRouter.group({});
 
@@ -84,3 +85,10 @@ FlowRouter.notFound = {
     mount(NotFound, {});
   },
 };
+
+exposed.route('/search', {
+  name: 'ResultsPage',
+  action(params) {
+    mount(Results, {});
+  },
+});

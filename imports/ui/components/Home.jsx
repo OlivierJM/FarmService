@@ -13,10 +13,19 @@ export class Home extends Component {
       $('.materialboxed').materialbox();
     }, 50);
   }
+  search = e => {
+    const value = e.target.search.value;
+    FlowRouter.go(`/search?q=${value}`);
+  };
   render() {
     const { services } = this.props;
     return (
       <Fragment>
+        <div className="topnav">
+          <form onSubmit={this.search}>
+            <input type="text" placeholder="Search.." name="search" />
+          </form>
+        </div>
         {services
           ? services.map(service => (
               <div key={service._id} className="col s4 " style={{ marginTop: 20 }}>
