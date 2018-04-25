@@ -19,6 +19,7 @@ const ServiceSchema = new SimpleSchema({
   service_name: String,
   service_desc: String,
   location: String,
+  supplier: String,
   quantity: {
     type: String,
     optional: true,

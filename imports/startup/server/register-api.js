@@ -6,3 +6,6 @@ import '../../api/services/server/publications';
 import '../../api/services/services';
 import '../../api/media/media';
 import '../../api/media/publications';
+import '../../api/comments/comments';
+import '../../api/comments/methods';
+import '../../api/comments/server/publications';

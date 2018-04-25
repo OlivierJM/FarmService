@@ -14,7 +14,7 @@ export default class HomeWrapper extends Component {
       <Fragment>
         <div className="container page-wrapper">
           <div className="row">
-            <div className="col s12 m2 l4">
+            <div className="col s2">
               <ul id="slide-out" className="sidenav sidenav-fixed">
                 <li>
                   <div className="user-view">
@@ -62,7 +62,7 @@ export default class HomeWrapper extends Component {
                 <i className="material-icons">menu</i>
               </a>
             </div>
-            <div className="col s10 m10 l8">{this.props.landing}</div>
+            <div className="col s10">{this.props.landing}</div>
           </div>
         </div>
       </Fragment>

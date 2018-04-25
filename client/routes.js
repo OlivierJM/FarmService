@@ -11,7 +11,10 @@ import NotFound from '../imports/ui/layouts/NotFound';
 import UpdateService from '../imports/ui/components/Admin/UpdateService';
 import HomeWrapper from '../imports/ui/components/HomeWrapper';
 import ServiceDetails from '../imports/ui/components/ServiceDetails';
-import BuyTractor from '../imports/ui/components/Admin/BuyTractor'
+import Results from '../imports/ui/components/Results';
+import BuyTractor from '../imports/ui/components/BuyTractor';
+import Bank from '../imports/ui/components/Bank';
+import Supplier from '../imports/ui/components/Supplier';
 
 const exposed = FlowRouter.group({});
 
@@ -78,6 +81,24 @@ loggedIn.route('/buy_tractor', {
     mount(DashBoard, { yield: <BuyTractor /> });
   },
 });
+loggedIn.route('/tractor', {
+  name: 'tractor',
+  action() {
+    mount(DashBoard, { yield: <BuyTractor /> });
+  },
+});
+loggedIn.route('/bank', {
+  name: 'Bank',
+  action() {
+    mount(DashBoard, { yield: <Bank /> });
+  },
+});
+loggedIn.route('/supplier', {
+  name: 'Supplier',
+  action() {
+    mount(DashBoard, { yield: <Supplier /> });
+  },
+});
 loggedIn.route('/my_services/:_id', {
   name: 'UpdateService',
   action(params) {
@@ -91,3 +112,10 @@ FlowRouter.notFound = {
     mount(NotFound, {});
   },
 };
+
+exposed.route('/search', {
+  name: 'ResultsPage',
+  action(params) {
+    mount(Results, {});
+  },
+});
