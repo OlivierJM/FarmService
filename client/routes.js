@@ -11,6 +11,7 @@ import NotFound from '../imports/ui/layouts/NotFound';
 import UpdateService from '../imports/ui/components/Admin/UpdateService';
 import HomeWrapper from '../imports/ui/components/HomeWrapper';
 import ServiceDetails from '../imports/ui/components/ServiceDetails';
+import BuyTractor from '../imports/ui/components/Admin/BuyTractor'
 
 const exposed = FlowRouter.group({});
 
@@ -69,6 +70,12 @@ loggedIn.route('/my_services', {
   name: 'MyServices',
   action() {
     mount(DashBoard, { yield: <MyServices /> });
+  },
+});
+loggedIn.route('/buy_tractor', {
+  name: 'BuyTractor',
+  action() {
+    mount(DashBoard, { yield: <BuyTractor /> });
   },
 });
 loggedIn.route('/my_services/:_id', {

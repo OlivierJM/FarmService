@@ -11,7 +11,7 @@ export class UpdateService extends Component {
 
     return (
       <Fragment>
-        <div>Hello rthere</div>
+        <div>Hello there</div>
       </Fragment>
     );
   }

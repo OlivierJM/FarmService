@@ -39,6 +39,9 @@ export default class HomeWrapper extends Component {
                   <a href="/farm">Farm Service</a>
                 </li>
                 <li>
+                  <a href="/buy_tractor">Buy a Tractor</a>
+                </li>
+                <li>
                   <div className="divider" />
                 </li>
                 <li>
